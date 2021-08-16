@@ -21,6 +21,8 @@ export default class Index extends Component {
       mapWidth: 6000,
       radius: 16,
       offset: 0,
+      data: this.props.data,
+      display: "all",
     };
     this.onClickZoomIn = this.onClickZoomIn.bind(this);
     this.onClickZoomOut = this.onClickZoomOut.bind(this);
@@ -37,6 +39,7 @@ export default class Index extends Component {
             eruptions: station.lat,
             waiting: station.lon,
             name: station.station_name,
+            closed: station.close_ymd !== "0000-00-00",
           };
         }),
       };
@@ -66,6 +69,23 @@ export default class Index extends Component {
       radius: this.state.radius + 3,
     });
   };
+  onSelectDisplayType = async (event) => {
+    const getDisplayData = () => {
+      switch (event.target.value) {
+        case "all":
+          return this.props.data;
+        case "open":
+          return this.props.data.filter((station) => !station.closed);
+        case "closed":
+          return this.props.data.filter((station) => station.closed);
+      }
+    };
+
+    this.setState({
+      data: getDisplayData(),
+      display: event.target.value,
+    });
+  };
   getStationName = (node) => {
     return node[0].name;
   };
@@ -80,6 +100,8 @@ export default class Index extends Component {
       mapWidth,
       radius,
       offset,
+      data,
+      display,
     } = this.state;
 
     return (
@@ -100,6 +122,17 @@ export default class Index extends Component {
           >
             -
           </button>
+          <select
+            name="display"
+            id="display-select"
+            value={display}
+            className={styles.select}
+            onChange={this.onSelectDisplayType}
+          >
+            <option value="all">全表示</option>
+            <option value="open">営業駅のみ</option>
+            <option value="closed">廃駅のみ</option>
+          </select>
         </div>
         <XYPlot
           xDomain={xDomain}
@@ -123,7 +156,7 @@ export default class Index extends Component {
             onValueMouseOver={(node) => this.setState({ hoveredNode: node })}
             colorRange={["#f7e5cf", "#bf1d1d"]}
             radius={radius}
-            data={this.props.data}
+            data={data}
           />
           {hoveredNode && (
             <Hint

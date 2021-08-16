@@ -14,6 +14,12 @@
   width: 100px;
 }
 
+.select {
+  margin-left: 30px;
+  font-size: 5rem;
+  height: 100%;
+}
+
 .hint {
   position: fixed;
   left: 20px;
