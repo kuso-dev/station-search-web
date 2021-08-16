@@ -114,7 +114,6 @@ export default class Index extends Component {
           <VerticalGridLines tickTotal={500} style={{ stroke: "#B7E9ED" }} />
           <HexbinSeries
             animation
-            className="hexbin-example"
             style={{
               stroke: "#125C77",
               strokeLinejoin: "round",
