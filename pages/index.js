@@ -7,6 +7,7 @@ import {
   Hint,
   Borders,
 } from "react-vis";
+import Link from "next/link";
 
 import styles from "../styles/Home.module.css";
 export default class Index extends Component {
@@ -133,6 +134,9 @@ export default class Index extends Component {
             <option value="open">営業駅のみ</option>
             <option value="closed">廃駅のみ</option>
           </select>
+          <Link href="/node">
+            <a className={styles.link}>ノード表示</a>
+          </Link>
         </div>
         <XYPlot
           xDomain={xDomain}

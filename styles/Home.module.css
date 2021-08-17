@@ -20,6 +20,14 @@
   height: 100%;
 }
 
+.link {
+  margin-left: 30px;
+  padding: 20px;
+  font-size: 4rem;
+  background: lightblue;
+  color: white;
+}
+
 .hint {
   position: fixed;
   left: 20px;
